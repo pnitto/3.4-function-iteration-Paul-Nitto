@@ -9,13 +9,17 @@ object2 = {price: 20}
 object3 = {price: 18}
 */
 
-var total = 0
-items.forEach(function(item) {
-  total += item.price;
-  //console.log(total);
-  averageTotal = (total / items.length).toFixed(2);
-});
-//console.log(averageTotal);
+function itemPrice(item){
+  return item.price;
+}
+var prices = items.map(itemPrice);
+
+function AveragePrice(arr){
+  return arr.reduce(function(x,y){
+    return Math.round(Number(x +y));
+  })/arr.length;
+}
+AveragePrice(prices);
 
 /*
 prices : Number => Number
@@ -29,12 +33,20 @@ object-1 = [{price: 20}, => false
           ]
 
 */
-items.filter(function(item) {
+ function itemsBtw14_18(item){
   if(item.price >= 14 && item.price <= 18) {
-  //console.log(item.title);
-};
-});
+    return true;
+  } else {
+    return false;
+  }
+}
+  var itemList = items.filter(itemsBtw14_18);
 
+  function title(item){
+    return item.title;
+  }
+var titleList = itemList.map(title);
+ //console.log(titleList);
 /*
 currency-code = "string"(item)-argument
 I need to iterate thru all the objects and filter on the currency-code to get the type of currency that equals "GBP".
@@ -46,11 +58,19 @@ object-1 =[{object-1: currency-code: "GBP" } => true
   ]
 */
 
-items.filter(function(item) {
+function findGBP(item) {
   if(item.currency_code === "GBP") {
-    //console.log(item.title + " " + item.price + "\u00A3")
-  };
-});
+    return true;
+  } else {
+    return false;
+  }
+};
+  var GBPlist = items.filter(findGBP);
+ function titleAndPrice(item){
+   return item.title + " "+ item.price + "\u00A3"
+ }
+ var GBPtitlelist = GBPlist.map(titleAndPrice);
+ console.log(GBPtitlelist);
 /*
 item: wood => "string"
  I need to iterate thru every object and get the array of materials. once, I get that array I need to iterate thru that array
@@ -62,12 +82,20 @@ item: wood => "string"
               title: "name of item"}
 ]
 */
-
-items.forEach(function(item) {
+function getWoodItem(item) {
   if(item.materials.indexOf('wood') > -1){
+    return true;
+  } else {
+    return false;
+  }
+}
+var woodList = items.filter(getWoodItem);
+var wooditems = woodlist.map(title);
+
+console.log(wooditems);
+
     //console.log(item.title);
-  };
-});
+
 
 /*
 item: materials-array
@@ -82,12 +110,20 @@ object-1 = [{materials:['wood', 'ceramic', 'glass']}, => false
            ]
 */
 
-items.forEach(function(item){
+ function Morethan8Materials(item) {
   if(item.materials.length >= 8){
-    //console.log(item.materials);
-  };
+    return true;
+  }else {
+    return false;
+  }
+};
+var Morethan8List = items.filter(Morethan8Materials);
+Morethan8List.forEach(function(item){
+  console.log(item.title);
+  item.materials.forEach(function(mats, x){
+    console.log(item.materials[x]);
+  });
 });
-
 /*
 item : 'string'- who made-"i_did"-count
 I need to iterate thru every object and find the who_made attribute for each object. Then I need to count how many times the string "I_did"
@@ -100,8 +136,12 @@ object-1: [{"who_made": "i_did"}, => true
         ]
 */
 
-items.filter(function(item){
-  if(item.who_made.indexOf('i_did') > -1) {
-    //console.log(item.title.value);
+function madeBy(item){
+  if(item.who_made === 'i_did'){
+    return true;
+  } else {
+    return false;
   }
-});
+};
+var madebyList = items.filter(madeBy);
+console.log(madebyList.length);
